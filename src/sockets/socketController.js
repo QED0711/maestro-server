@@ -7,9 +7,10 @@ const socketController = {
     handleSync: io => async data => {
         const { clientID } = data;
         for (let i = 0; i < 50; i++){
-            await sleep(25);
+            await sleep(50);
             await io.emit(`sync-${clientID}`, {serverTime: Date.now()})
         }
+        io.emit(`syncComplete-${clientID}`, {message: "sync complete"})
     },
 
 
