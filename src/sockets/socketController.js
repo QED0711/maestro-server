@@ -3,8 +3,54 @@ const sleep = ms => {
 }
 const socketController = {
 
+    // SYNC
+    handleSync: io => async data => {
+        const { clientID } = data;
+        for (let i = 0; i < 50; i++){
+            await sleep(25);
+            await io.emit(`sync-${clientID}`, {serverTime: Date.now()})
+        }
+    },
+
+
+    // CONDUCTOR SOCKETS
+    handlePlayCue: io => async data => {
+        let {sessionKey, cueSheet, cue, delay} = data;
+
+        delay = delay || 10000; // default delay of 10 seconds
+
+        io.emit(`execCue-${sessionKey}`, {cueSheet, cue, delay, time: Date.now()})
+
+    },
+    
+    handleMetronome: io => async data => {
+        let {sessionKey, tempo, delay} = data;
+
+        delay = delay || 10000;
+
+        io.emit(`execMetronome-${sessionKey}`, {tempo, delay, time: Date.now()})
+    },
+    
+    handleStop: io => async data => {
+
+        const {sessionKey} = data;
+        io.emit(`execStop-${sessionKey}`, {message: "stop"})
+
+    },
+
+
+
+
+
+
+
+
     handlePing: io => async data => {
+        
+        console.log(`new client connected: ${data.clientID}`)
+
         let pingCount = 0;
+
         while(pingCount < 50){
             await sleep(50)
             await io.emit(`ping-${data.clientID}`, {serverTime: Date.now()})
@@ -20,7 +66,7 @@ const socketController = {
         let newTime;
         while (count <= 32) {
             newTime = Date.now()
-            if(newTime - currentTime >= 500){
+            if(newTime - currentTime >= (60000 / 100)){
                 console.log({newTime, currentTime})
                 await io.emit("test", {count, time: newTime})
                 currentTime = newTime

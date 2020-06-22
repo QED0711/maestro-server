@@ -9,6 +9,15 @@ const sockets = io => {
         // console.log("NEW CONNECTION")
         
         // RECEIVING
+
+        // SYNC
+        socket.on("sync", socketController.handleSync(io))
+
+        // CONDUCTOR
+        socket.on("playCue", socketController.handlePlayCue(io))
+        socket.on("metronome", socketController.handleMetronome(io))
+        socket.on("stop", socketController.handleStop(io))
+
         socket.on("clientPing", socketController.handlePing(io))
 
 
