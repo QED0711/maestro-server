@@ -25,11 +25,12 @@ const socketController = {
     },
     
     handleMetronome: io => async data => {
-        let {sessionKey, tempo, delay} = data;
+        let {sessionKey, bpm, subdivision, delay} = data;
 
-        delay = delay || 10000;
+        delay = delay || 3000;
+        const startTime = Date.now() + delay
 
-        io.emit(`execMetronome-${sessionKey}`, {tempo, delay, time: Date.now()})
+        io.emit(`execMetronome-${sessionKey}`, {bpm, subdivision, startTime})
     },
     
     handleStop: io => async data => {
