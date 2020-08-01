@@ -32,7 +32,22 @@ const socketController = {
 
         io.emit(`execMetronome-${sessionKey}`, {bpm, subdivision, startTime, numBeats})
     },
+
+
+
+
+    handleCuePlayer: io => async data => {
+        let {sessionKey, player} = data;
+        io.emit(`execPlayerCue-${sessionKey}`, {player})
+    },
     
+    handleCuePlayerStop: io => async data => {
+        let {sessionKey, player} = data;
+        io.emit(`execPlayerCueStop-${sessionKey}`, {player})
+    },
+
+
+
     handleStop: io => async data => {
 
         const {sessionKey} = data;

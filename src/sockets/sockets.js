@@ -18,6 +18,9 @@ const sockets = io => {
         socket.on("metronome", socketController.handleMetronome(io))
         socket.on("stop", socketController.handleStop(io))
 
+        socket.on("cue_player", socketController.handleCuePlayer(io))
+        socket.on("cue_player_stop", socketController.handleCuePlayerStop(io))
+
         socket.on("clientPing", socketController.handlePing(io))
 
 
