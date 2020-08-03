@@ -14,10 +14,33 @@ const socketController = {
     },
 
 
+    handlePingPlayer: io => async data => {
+
+        const {player, sessionKey} = data
+        console.log("RECEIVED")
+        io.emit(`execPingPlayer-${sessionKey}`, {player, time: Date.now()})
+
+    },
+
+    handleReportPlayerPing: io => data => {
+        console.log(data)
+        console.log({
+            delay: data.timeReceived - data.timeSent,
+            roundtrip: Date.now() - data.timeSent
+        })
+        const {player, sessionKey} = data 
+        io.emit(`execReportPlayerPing-${sessionKey}`, {
+            player, 
+            delay: data.timeReceived - data.timeSent,
+            roundtrip: Date.now() - data.timeSent
+        })
+    },
+
+
     // CONDUCTOR SOCKETS
     handlePlayCue: io => async data => {
         let {sessionKey, cueSheet, cue, delay} = data;
-
+        
         delay = delay || 10000; // default delay of 10 seconds
 
         io.emit(`execCue-${sessionKey}`, {cueSheet, cue, delay, time: Date.now()})

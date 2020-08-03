@@ -12,6 +12,8 @@ const sockets = io => {
 
         // SYNC
         socket.on("sync", socketController.handleSync(io))
+        socket.on("ping_player", socketController.handlePingPlayer(io))
+        socket.on("report_player_ping_received", socketController.handleReportPlayerPing(io))
 
         // CONDUCTOR
         socket.on("playCue", socketController.handlePlayCue(io))
