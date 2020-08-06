@@ -39,13 +39,14 @@ const socketController = {
 
     // CONDUCTOR SOCKETS
     handlePlayCue: io => async data => {
-        let {sessionKey, cueSheet, cue, delay, startMeasure, repeatStart, tempoShift} = data;
+        let {sessionKey, cueSheet, cue, delay, delayAdjustments, startMeasure, repeatStart, tempoShift} = data;
         delay = delay || 5000; // default delay of 5 seconds
 
         io.emit(`execCue-${sessionKey}`, {
             cueSheet, // this is hardcoded on the front end for now
             cue, 
             delay, 
+            delayAdjustments,
             startMeasure, 
             repeatStart, 
             tempoShift,
