@@ -9,7 +9,7 @@ import sockets from './sockets/sockets'
 // ========================== INITIALIZATION ==========================
 const app = express();
 const server = http.Server(app);
-const io = socketIO(server)
+const io = socketIO(server, {pingInterval: 2000})
 sockets(io)
 
 

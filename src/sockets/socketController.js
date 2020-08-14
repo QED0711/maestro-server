@@ -3,6 +3,10 @@ const sleep = ms => {
 }
 const socketController = {
 
+    handlePing: io => async data => {
+        io.emit(`time-pong-${data.clientID}`, {time: Date.now()})
+    },
+
     // SYNC
     handleSync: io => async data => {
         const { clientID } = data;
@@ -93,20 +97,20 @@ const socketController = {
 
 
 
-    handlePing: io => async data => {
+    // handlePing: io => async data => {
         
-        console.log(`new client connected: ${data.clientID}`)
+    //     console.log(`new client connected: ${data.clientID}`)
 
-        let pingCount = 0;
+    //     let pingCount = 0;
 
-        while(pingCount < 50){
-            await sleep(50)
-            await io.emit(`ping-${data.clientID}`, {serverTime: Date.now()})
-            pingCount += 1;
-        }
+    //     while(pingCount < 50){
+    //         await sleep(50)
+    //         await io.emit(`ping-${data.clientID}`, {serverTime: Date.now()})
+    //         pingCount += 1;
+    //     }
 
-        io.emit(`sync-complete-${data.clientID}`, {message: "sync complete"})
-    },
+    //     io.emit(`sync-complete-${data.clientID}`, {message: "sync complete"})
+    // },
 
     handleMultiple: io => async data => {
         let count = 1;

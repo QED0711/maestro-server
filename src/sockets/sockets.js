@@ -11,6 +11,7 @@ const sockets = io => {
         // RECEIVING
 
         // SYNC
+        socket.on("client-ping", socketController.handlePing(io))
         socket.on("sync", socketController.handleSync(io))
         socket.on("ping_player", socketController.handlePingPlayer(io))
         socket.on("report_player_ping_received", socketController.handleReportPlayerPing(io))
@@ -23,7 +24,7 @@ const sockets = io => {
         socket.on("cue_player", socketController.handleCuePlayer(io))
         socket.on("cue_player_stop", socketController.handleCuePlayerStop(io))
 
-        socket.on("clientPing", socketController.handlePing(io))
+        // socket.on("clientPing", socketController.handlePing(io))
 
 
         socket.on("multiple", socketController.handleMultiple(io))
