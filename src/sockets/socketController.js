@@ -21,7 +21,6 @@ const socketController = {
     handlePingPlayer: io => async data => {
 
         const { player, sessionKey } = data
-        console.log("RECEIVED")
         io.emit(`execPingPlayer-${sessionKey}`, { player, time: Date.now() })
 
     },
@@ -34,6 +33,10 @@ const socketController = {
             roundtrip: Date.now() - data.timeSent,
             latencyPings: data.latencyPings
         })
+    },
+
+    handleResetPlayer: io => data => {
+        io.emit(`execResetPlayer-${data.sessionKey}`, {player: data.player})
     },
 
 
