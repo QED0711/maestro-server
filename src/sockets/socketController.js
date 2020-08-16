@@ -31,7 +31,8 @@ const socketController = {
             player,
             delay: data.timeReceived - data.timeSent,
             roundtrip: Date.now() - data.timeSent,
-            latencyPings: data.latencyPings
+            latencyPings: data.latencyPings,
+            latencyVariance: data.latencyVariance
         })
     },
 
