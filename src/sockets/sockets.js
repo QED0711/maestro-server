@@ -6,7 +6,7 @@ const sockets = io => {
 
     io.on('connection', socket => {
         
-        // console.log("NEW CONNECTION")
+        console.log("NEW CONNECTION")
         
         // RECEIVING
 
