@@ -92,7 +92,9 @@ const socketController = {
 
 
 
-
+    returnTravelTime: io => async data => {
+        io.emit(`return-travel-time-${data.clientID}`, data)
+    },
 
 
 

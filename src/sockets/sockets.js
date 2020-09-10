@@ -17,6 +17,8 @@ const sockets = io => {
         socket.on("report_player_ping_received", socketController.handleReportPlayerPing(io))
         socket.on("reset_player", socketController.handleResetPlayer(io))
 
+        socket.on("request-travel-time", socketController.returnTravelTime(io))
+
         // CONDUCTOR
         socket.on("playCue", socketController.handlePlayCue(io))
         socket.on("metronome", socketController.handleMetronome(io))
