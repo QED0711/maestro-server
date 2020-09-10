@@ -92,8 +92,9 @@ const socketController = {
 
 
 
-    returnTravelTime: io => async data => {
-        io.emit(`return-travel-time-${data.clientID}`, data)
+    returnTravelTime: io => async (data, callback) => {
+        callback(data)
+        // io.emit(`return-travel-time-${data.clientID}`, data)
     },
 
 
